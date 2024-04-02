@@ -1,47 +1,68 @@
 /**
- * Klasse MVCController ist für die Erzeugung des User Interface und des Datenmodells verantwortlich.
- * Zusätzlich werden alle Benutzeraktionen im User Interface in Form von ActionEvents behandelt.
+ * Klasse zur Generierung eines Objekts für die Rezeptverwaltung. Jede Rezeptverwaltung besitzt je ein Array für Rezepte für Pastagerichte, Fleischgerichte,
+ * COcktais und Limonaden
  * @author Timo
- * @version 1.0
+ * @version 1
  */
-public class MVCController {
+public class Rezeptverwaltung {
 
-    private MVCView view;
-    private MVCModel model;
+    private BasisRezept[] rezepte;
 
-    public MVCController() {
-        //Erzeugung des User Interface durch ein Objekt der Klasse MVCView
-        this.view = new MVCView(this);
-        //Erzeugung des Datenmodells durch ein Objekt der Klasse MVCModel
-        this.model = new MVCModel();
+    public Rezeptverwaltung (){
 
-        testeRezeptverwaltung();
+        rezepte = new BasisRezept[1000];
 
     }
 
-    public void testeRezeptverwaltung(){
+    public void nehmeRezeptAuf (BasisRezept rezept){
 
-        Zutat zitrone = new Zutat("Zitrone", 1.00);
-        Zutat orange = new Zutat("Orange", 1.50);
-        Zutat minze = new Zutat("Minze", 0.75);
-        Zutat zucker = new Zutat("Zucker", 0.25);
-        Zutat wasser = new Zutat("Wasser", 0.10);
-        Zutat eis = new Zutat("Eis", 0.50);
-        Zutat limette = new Zutat("Limette", 2.00);
+        boolean aktualisiert = false;
+        for (int i = 0; i < rezepte.length; i++){
 
-        Zutat[] zutatenOrangenlimo = {orange, minze, wasser, eis};
-        Limonade orangenlimo = new Limonade("Orangenlimo", zutatenOrangenlimo, false,true, "Orange", true);
+            if (rezepte[i] != null){
 
-        Zutat[] zutatenZitronenlimo = {zitrone, minze, zucker, wasser, eis};
-        Limonade zitronenlimo = new Limonade("Zitronenlimo", zutatenZitronenlimo, false, false, "Zitrone", false);
+                if (rezepte[i].getName().equals(rezept.getName()) && rezepte[i].getTyp().equals(rezept.getTyp())){
 
-        Zutat[] zutatenCaipirinha = {minze, limette, zucker, wasser, eis};
-        Cocktail caipirinha = new Cocktail("Caipirinha", zutatenCaipirinha, false, false, 0, true);
+                    System.out.println("Rezept aktualisiert");
+                    rezepte[i] = rezept;
+                    aktualisiert = true;
+                    break;
 
-        model.rezeptverwaltung.nehmeRezeptAuf(orangenlimo);
-        model.rezeptverwaltung.nehmeRezeptAuf(zitronenlimo);
-        model.rezeptverwaltung.nehmeRezeptAuf(caipirinha);
+                }
+            }
+        }
 
+        if (aktualisiert == false){
+
+            for (int i = 0; i < rezepte.length; i++){
+
+                if (rezepte[i] == null){
+
+                    // Hinzufügen von Rezept
+                    rezepte[i] = rezept;
+                    System.out.println("Rezept aufgenommen");
+                    break;
+
+                }
+            }
+        } else {
+
+            System.out.println("Rezept nicht aufgenommen, Rezeptverwaltung ist voll");
+
+        }
     }
 
+    public BasisRezept getRezept(String rezeptname, String rezepttyp){
+
+        // zu implmeneiteren
+        return null;
+    }
+
+    public BasisRezept[] getRezepte() {
+        return rezepte;
+    }
+
+    public void setRezepte(BasisRezept[] rezepte) {
+        this.rezepte = rezepte;
+    }
 }
